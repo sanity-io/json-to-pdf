@@ -3,7 +3,7 @@ import {parse} from 'url'
 import {ParsedRequest, Theme} from './types'
 
 function resolveFileType(extension: string): any {
-  return ['pdf', 'png', 'jpeg', 'html'].includes(extension) ? extension : 'png'
+  return ['pdf', 'png', 'jpeg', 'html'].includes(extension) ? extension : 'pdf'
 }
 
 export function parseRequest(req: IncomingMessage) {

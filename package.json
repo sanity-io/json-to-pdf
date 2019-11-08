@@ -6,7 +6,7 @@
     "node": "10.x"
   },
   "scripts": {
-    "build": "tsc -p api/tsconfig.json && tsc -p web/tsconfig.json"
+    "build": "tsc -p api/tsconfig.json"
   },
   "license": "MIT",
   "dependencies": {

@@ -1,4 +1,4 @@
-# json-to-pdf
+# Create a Business Card PDF
 
 This thing only handles a person document. It must be shaped like this:
 
@@ -20,4 +20,4 @@ This thing only handles a person document. It must be shaped like this:
 ```
 
 
-http://localhost:3000/api/json-to-pdf?document=<stringifyied-person-document>
+http://localhost:3000/api/json-to-pdf?fileType=pdf&document=<stringifyied-person-document>
