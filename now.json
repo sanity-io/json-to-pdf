@@ -1,0 +1,6 @@
+{
+  "regions": ["all"],
+  "public": true,
+  "version": 2,
+  "NOPE-routes": [{"src": "/(.+)", "dest": "/api"}]
+}
