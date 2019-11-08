@@ -1,6 +1,10 @@
-# Create a Business Card PDF
+# Bring JSON, get a PDF (or one of the other outputs)
 
-This thing only handles a person document. It must be shaped like this:
+Outputs: `png`, `png`, `jpeg`, `html`
+
+Currently, this thing only handles one particular job: Turn a person document into a business card.
+
+The person doc must be shaped like this:
 
 ```
 {
@@ -20,4 +24,4 @@ This thing only handles a person document. It must be shaped like this:
 ```
 
 
-http://localhost:3000/api/json-to-pdf?fileType=pdf&document=<stringifyied-person-document>
+http://localhost:3000/api/business-card?fileType=pdf&document=<stringifyied-person-document>
