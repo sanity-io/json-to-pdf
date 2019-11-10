@@ -60,7 +60,6 @@ function getCss(theme: string, fontSize: string) {
         border: 1px solid #f9f3e6;
         border-radius: 8px;
         background-color: #f9f3e6;
-        box-shadow: 12px 12px 20px 1px rgba(0, 0, 0, 0.1);
         width: 1050px;
         height: 600px;
     }
@@ -152,10 +151,14 @@ function renderContactItems(contactItems: ({contact: string; icon: IconResolver}
 }
 
 function renderImage(src: string, width = 'auto', height = '250') {
+  console.log('renderImage', src)
+  if (!src) {
+    return ''
+  }
   const scaledImageSource = `${src}?h=${height}`
   return `<img
         class="profile-image"
-        alt="Generated Image"
+        alt="Profile image"
         src="${scaledImageSource}"
         width="${sanitizeHtml(width)}"
     />`

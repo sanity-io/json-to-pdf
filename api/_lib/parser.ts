@@ -7,6 +7,7 @@ function resolveFileType(extension: string): any {
 }
 
 export function parseRequest(req: IncomingMessage) {
+  console.log('HTTP -=> ', req.url)
   const {pathname = '/', query = {}} = parse(req.url || '', true)
   const {fontSize, images, widths, heights, theme, md, document, fileType = ''} = query
 
