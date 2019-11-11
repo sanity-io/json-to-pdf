@@ -25,10 +25,6 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     res.statusCode = 200
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'GET')
-    // res.setHeader(
-    //   'Cache-Control',
-    //   `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
-    // )
     if (fileType === 'pdf') {
       res.setHeader('Content-Type', 'application/pdf')
       res.setHeader('Content-Disposition', 'attachment; filename="business-card.pdf"')
