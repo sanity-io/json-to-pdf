@@ -37,7 +37,7 @@ export function parseRequest(req: IncomingMessage) {
     images: getArray(images),
     widths: getArray(widths),
     heights: getArray(heights),
-    document
+    document: JSON.parse(document.toString())
   }
   parsedRequest.images = getDefaultImages(parsedRequest.images, parsedRequest.theme)
   return parsedRequest

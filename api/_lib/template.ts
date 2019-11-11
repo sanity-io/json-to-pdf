@@ -106,8 +106,7 @@ function getCss(theme: string, fontSize: string) {
 
 export function getHtml(parsedReq: ParsedRequest) {
   const {theme, fontSize, document} = parsedReq
-  const parsedDocument = JSON.parse(document)
-  const {contactInfo, description, name, profileImageUrl} = parsedDocument
+  const {contactInfo, description, name, profileImageUrl} = document
 
   const contactItems: ({contact: string; icon: IconResolver})[] = Object.keys(contactInfo)
     .filter(key => key !== '_type')
