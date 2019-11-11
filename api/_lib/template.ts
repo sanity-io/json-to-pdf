@@ -68,9 +68,9 @@ function getCss(theme: string, fontSize: string) {
         float: left;
     }
 
-    .profile-image {
+    .image {
         margin: 25%;
-        border-radius: 50%;
+        background-color: blue;
     }
 
     .text-wrapper {
@@ -106,7 +106,7 @@ function getCss(theme: string, fontSize: string) {
 
 export function getHtml(parsedReq: ParsedRequest) {
   const {theme, fontSize, document} = parsedReq
-  const {contactInfo, description, name, profileImageUrl} = document
+  const {contactInfo, description, name, imageUrl} = document
 
   const contactItems: ({contact: string; icon: IconResolver})[] = Object.keys(contactInfo)
     .filter(key => key !== '_type')
@@ -123,7 +123,7 @@ export function getHtml(parsedReq: ParsedRequest) {
     <body>
         <div class="card-wrapper">
             <div class="image-wrapper">
-                ${renderImage(profileImageUrl)}
+                ${renderImage(imageUrl)}
             </div>
             <div class="text-wrapper">
                 <h2 class="name">${name}</h2>
@@ -154,10 +154,16 @@ function renderImage(src: string, width = 'auto', height = '250') {
   if (!src) {
     return ''
   }
+  const imageType = src
+    .split('?')[0]
+    .split('.')
+    .slice(-1)[0]
+  console.log('The image is of type', imageType)
+
   const scaledImageSource = `${src}?h=${height}`
   return `<img
-        class="profile-image"
-        alt="Profile image"
+        class="image"
+        alt="Image ${imageType}"
         src="${scaledImageSource}"
         width="${sanitizeHtml(width)}"
     />`

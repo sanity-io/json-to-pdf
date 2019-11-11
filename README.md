@@ -19,7 +19,7 @@ The person doc must be shaped like this:
   },
   "description": "I'm Laika. Like and subscribe!",
   "name": "Laika",
-  "profileImageUrl": "https://cdn.sanity.io/images/e8pwkiz9/production/be9baedbdf9878f16e17e8408735dadf1f60d283-1023x1027.png"
+  "imageUrl": "https://cdn.sanity.io/images/e8pwkiz9/production/be9baedbdf9878f16e17e8408735dadf1f60d283-1023x1027.png"
 }
 ```
 
