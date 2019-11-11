@@ -1,6 +1,6 @@
 import {IncomingMessage} from 'http'
 import {parse} from 'url'
-import {ParsedRequest, Theme} from './types'
+import {ParsedRequest} from './types'
 
 function resolveFileType(extension: string): any {
   return ['pdf', 'png', 'jpeg', 'html'].includes(extension) ? extension : 'pdf'
@@ -39,23 +39,9 @@ export function parseRequest(req: IncomingMessage) {
     heights: getArray(heights),
     document: JSON.parse(document.toString())
   }
-  parsedRequest.images = getDefaultImages(parsedRequest.images, parsedRequest.theme)
   return parsedRequest
 }
 
 function getArray(stringOrArray: string[] | string): string[] {
   return Array.isArray(stringOrArray) ? stringOrArray : [stringOrArray]
-}
-
-function getDefaultImages(images: string[], theme: Theme): string[] {
-  if (
-    images.length > 0 &&
-    images[0] &&
-    images[0].startsWith('https://assets.zeit.co/image/upload/front/assets/design/')
-  ) {
-    return images
-  }
-  return theme === 'light'
-    ? ['https://assets.zeit.co/image/upload/front/assets/design/now-black.svg']
-    : ['https://assets.zeit.co/image/upload/front/assets/design/now-white.svg']
 }
