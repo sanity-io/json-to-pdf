@@ -9,7 +9,7 @@ function getCss(theme: string, fontSize: string) {
     foreground = 'white'
   }
   return `
-
+  
     body {
       background: ${background};
       font-size: ${fontSize};
@@ -19,6 +19,7 @@ function getCss(theme: string, fontSize: string) {
       text-align: center;
       align-items: center;
       justify-content: center;
+      margin: 0;
     }
     
     .card-scene {
@@ -31,7 +32,6 @@ function getCss(theme: string, fontSize: string) {
       height: 100%;
       width: 100%;
       box-sizing: border-box;
-      margin: 1rem 0;
       cursor: pointer;
       position: relative;
     }
@@ -49,7 +49,6 @@ function getCss(theme: string, fontSize: string) {
       background: linear-gradient(90deg, currentColor 10px, currentColor 10px, transparent 10px, transparent 20px, currentColor 20px, currentColor 30px, transparent 30px, transparent 40px, currentColor 40px, currentColor 50px, transparent 50px) repeat-y;
       box-sizing: border-box;
       padding: 2.5rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.15);
     }
     
     .card-logo {
