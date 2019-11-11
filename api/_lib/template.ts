@@ -50,6 +50,10 @@ function getCss(theme: string, fontSize: string) {
       box-sizing: border-box;
       padding: 2.5rem;
     }
+
+    .card-back {
+      background: linear-gradient(to right, currentColor, currentColor 50%, transparent 49%, transparent 100%) 100% / 25px repeat;
+    }
     
     .card-logo {
       grid-column: 2;
@@ -117,6 +121,7 @@ export function getHtml(parsedReq: ParsedRequest) {
               </div>
             </div>
           </div>
+          <div class="card-face card-back"></div>
         </div>
     </body>
 </html>`
