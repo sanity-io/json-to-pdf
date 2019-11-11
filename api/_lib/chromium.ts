@@ -21,7 +21,7 @@ export async function getScreenshot(url: string, type: FileType, isDev: boolean)
   if (['png', 'jpeg'].includes(type)) {
     file = await page.screenshot({type: type === 'jpeg' ? 'jpeg' : 'png'})
   } else {
-    file = await page.pdf({format: 'A6'})
+    file = await page.pdf({width: '1050px', height: '600px'})
   }
   return file
 }
