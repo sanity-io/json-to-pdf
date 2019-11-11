@@ -1,116 +1,96 @@
-import {readFileSync} from 'fs'
-import {sanitizeHtml} from './sanitizer'
-import {ParsedRequest, IconResolver} from './types'
-import {emailIcon, phoneIcon, linkedinIcon, twitterIcon} from '../icons'
-const contactIcons: {[key: string]: IconResolver} = {
-  email: emailIcon,
-  phone: phoneIcon,
-  linkedIn: linkedinIcon,
-  twitter: twitterIcon
-}
-
-const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64')
-const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64')
-const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64')
+import {ParsedRequest} from './types'
 
 function getCss(theme: string, fontSize: string) {
   let background = 'white'
-  let foreground = 'rgba(20, 20, 20, 0.7)'
-  let radial = 'lightgray'
+  let foreground = 'black'
 
   if (theme === 'dark') {
     background = 'black'
     foreground = 'white'
-    radial = 'dimgray'
   }
   return `
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: bold;
-        src: url(data:font/woff2;charset=utf-8;base64,${bold}) format('woff2');
-    }
-
-    @font-face {
-        font-family: 'Vera';
-        font-style: normal;
-        font-weight: normal;
-        src: url(data:font/woff2;charset=utf-8;base64,${mono})  format("woff2");
-      }
 
     body {
-        background: ${background};
-        background-image: radial-gradient(circle at 25px 25px, ${radial} 2%, transparent 0%), radial-gradient(circle at 75px 75px, ${radial} 2%, transparent 0%);
-        background-size: 100px 100px;
-        height: 100vh;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
+      background: ${background};
+      font-size: ${fontSize};
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      height: 100vh;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card-scene {
+      color: ${foreground};
+      height: 600px;
+      width: 1050px;
+    }
+    
+    .card-root {
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 1rem 0;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .card-face {
+      height: 100%;
+      width: 100%;
+      border-radius: 2rem;
+    }
+    
+    .card-front {
+      display: grid;
+      grid-template-columns: 1fr min-content;
+      grid-template-rows: min-content auto;
+      background: linear-gradient(90deg, currentColor 10px, currentColor 10px, transparent 10px, transparent 20px, currentColor 20px, currentColor 30px, transparent 30px, transparent 40px, currentColor 40px, currentColor 50px, transparent 50px) repeat-y;
+      box-sizing: border-box;
+      padding: 2.5rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    }
+    
+    .card-logo {
+      grid-column: 2;
+      grid-row: 1;
+      margin-right: -1rem;
+      filter: invert(1);
+      width: 300px;
+    }
+    
+    .card-content {
+      margin-top: auto;
+      grid-column: 1;
+      grid-row: 2;
+      padding-left: 2.5rem;
+      text-align: left;
+    }
+    
+    h2, p {
+      margin: 0;
     }
 
-    .card-wrapper {
-        border: 1px solid #f9f3e6;
-        border-radius: 8px;
-        background-color: #f9f3e6;
-        width: 1050px;
-        height: 600px;
+    h2 {
+      text-transform: lowercase;
+      font-size: 8rem;
+      line-height: 7rem;
+      margin-bottom: 1.2rem;
     }
-
-    .image-wrapper {
-        float: left;
-    }
-
-    .image {
-        margin: 25%;
-        background-color: blue;
-    }
-
-    .text-wrapper {
-        margin: 0px 50px 0px 0px;
-        float: right;
-        font-family: 'Inter', sans-serif;
-        font-style: normal;
-        color: ${foreground};
-        height: 100%;
-    }
-
-    .name {
-        margin-top: 50px;
-        margin-bottom: 0px;
-        font-size: ${sanitizeHtml(fontSize)};
-    }
-
-    .description {
-        margin-top: 0px;
-        font-style: italic;
-        vertical-align: top;
-    }
-
-    .contact {
-        height: 100%;
-    }
-
-    .contact-item {
-        margin-right: 10px;
+    
+    p {
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
     }
     `
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
   const {theme, fontSize, document} = parsedReq
-  const {contactInfo, description, name, imageUrl} = document
-
-  const contactItems: ({contact: string; icon: IconResolver})[] = Object.keys(contactInfo)
-    .filter(key => key !== '_type')
-    .map(key => ({contact: contactInfo[key], icon: contactIcons[key]}))
+  const {contactInfo, name, imageUrl} = document
 
   return `<!DOCTYPE html>
 <html>
@@ -121,50 +101,24 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss(theme, fontSize)}
     </style>
     <body>
-        <div class="card-wrapper">
-            <div class="image-wrapper">
-                ${renderImage(imageUrl)}
+        <div class="card-scene">
+          <div class="card-root">
+            <div class="card-face card-front">
+              <div class="card-logo">
+                <img src="${imageUrl}">
+              </div>
+              <div class="card-content">
+                <h2>${name}</h2>
+                <p class="contact-item">
+                  ${contactInfo.twitter}
+                </p>
+                <p class="contact-item">
+                  ${contactInfo.email}
+                </p>
+              </div>
             </div>
-            <div class="text-wrapper">
-                <h2 class="name">${name}</h2>
-                <p class="description">${description}</p>
-                <div class="contact">
-                    ${renderContactItems(contactItems)}
-                </div>
-            </div>
+          </div>
         </div>
     </body>
 </html>`
-}
-
-function renderContactItems(contactItems: ({contact: string; icon: IconResolver})[]) {
-  let renderedItems = ''
-  contactItems.forEach(item => {
-    const thing = `<span class="contact-item">
-        ${item.icon(15)}
-        ${item.contact}
-    </span>`
-    renderedItems = `${renderedItems}\n${thing}`
-  })
-  return renderedItems
-}
-
-function renderImage(src: string, width = 'auto', height = '250') {
-  console.log('renderImage', src)
-  if (!src) {
-    return ''
-  }
-  const imageType = src
-    .split('?')[0]
-    .split('.')
-    .slice(-1)[0]
-  console.log('The image is of type', imageType)
-
-  const scaledImageSource = `${src}?h=${height}`
-  return `<img
-        class="image"
-        alt="Image ${imageType}"
-        src="${scaledImageSource}"
-        width="${sanitizeHtml(width)}"
-    />`
 }
