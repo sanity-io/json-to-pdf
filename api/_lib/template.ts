@@ -9,7 +9,7 @@ function getCss(theme: string, fontSize: string) {
     foreground = 'white'
   }
   return `
-  
+
     body {
       background: ${background};
       font-size: ${fontSize};
@@ -21,13 +21,13 @@ function getCss(theme: string, fontSize: string) {
       justify-content: center;
       margin: 0;
     }
-    
+
     .card-scene {
       color: ${foreground};
       height: 600px;
       width: 1050px;
     }
-    
+
     .card-root {
       height: 100%;
       width: 100%;
@@ -35,13 +35,13 @@ function getCss(theme: string, fontSize: string) {
       cursor: pointer;
       position: relative;
     }
-    
+
     .card-face {
       height: 100%;
       width: 100%;
       border-radius: 2rem;
     }
-    
+
     .card-front {
       display: grid;
       grid-template-columns: 1fr min-content;
@@ -54,7 +54,7 @@ function getCss(theme: string, fontSize: string) {
     .card-back {
       background: linear-gradient(to right, currentColor, currentColor 50%, transparent 49%, transparent 100%) 100% / 25px repeat;
     }
-    
+
     .card-logo {
       grid-column: 2;
       grid-row: 1;
@@ -62,7 +62,7 @@ function getCss(theme: string, fontSize: string) {
       filter: invert(1);
       width: 300px;
     }
-    
+
     .card-content {
       margin-top: auto;
       grid-column: 1;
@@ -70,7 +70,7 @@ function getCss(theme: string, fontSize: string) {
       padding-left: 2.5rem;
       text-align: left;
     }
-    
+
     h2, p {
       margin: 0;
     }
@@ -81,7 +81,7 @@ function getCss(theme: string, fontSize: string) {
       line-height: 7rem;
       margin-bottom: 1.2rem;
     }
-    
+
     p {
       text-transform: uppercase;
       font-size: 1.4rem;
@@ -93,7 +93,7 @@ function getCss(theme: string, fontSize: string) {
 
 export function getHtml(parsedReq: ParsedRequest) {
   const {theme, fontSize, document} = parsedReq
-  const {contactInfo, name, imageUrl} = document
+  const {contactInfo = {}, name, imageUrl} = document
 
   return `<!DOCTYPE html>
 <html>
@@ -113,10 +113,10 @@ export function getHtml(parsedReq: ParsedRequest) {
               <div class="card-content">
                 <h2>${name}</h2>
                 <p class="contact-item">
-                  ${contactInfo.twitter}
+                  ${contactInfo.twitter || ''}
                 </p>
                 <p class="contact-item">
-                  ${contactInfo.email}
+                  ${contactInfo.email || ''}
                 </p>
               </div>
             </div>
