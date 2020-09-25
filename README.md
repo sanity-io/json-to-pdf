@@ -1,6 +1,6 @@
 # Bring JSON, get a PDF (or one of the other outputs)
 
-Outputs: `png`, `png`, `jpeg`, `html`
+Outputs: `pdf`, `png`, `jpeg`, `html`
 
 Currently, this thing only handles one particular job: Turn a person document into a business card.
 
